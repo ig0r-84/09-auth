@@ -28,7 +28,7 @@ export default function SignInPage() {
       router.push("/profile");
       //   router.refresh();
     } catch {
-      setError("Не вдалося увійти. Перевір email і пароль.");
+      setError("Could not sign in. Check your email and password.");
     } finally {
       setIsLoading(false);
     }
@@ -37,7 +37,7 @@ export default function SignInPage() {
   return (
     <main className={css.mainContent}>
       <form className={css.form} onSubmit={handleSubmit}>
-        <h1 className={css.formTitle}>Вхід</h1>
+        <h1 className={css.formTitle}>Log in</h1>
 
         <label className={css.formGroup}>
           Email
@@ -52,7 +52,7 @@ export default function SignInPage() {
         </label>
 
         <label className={css.formGroup}>
-          Пароль
+          Pasword
           <input
             className={css.input}
             type="password"
@@ -71,7 +71,7 @@ export default function SignInPage() {
             type="submit"
             disabled={isLoading}
           >
-            {isLoading ? "Входимо..." : "Увійти"}
+            {isLoading ? "Entering..." : "Log in"}
           </button>
         </div>
       </form>
