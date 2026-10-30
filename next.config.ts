@@ -6,6 +6,14 @@ const nextConfig: NextConfig = {
     agentUpgrade: "security",
   },
   reactCompiler: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "ac.goit.global",
+      },
+    ],
+  },
 };
 
 export default nextConfig;
