@@ -2,9 +2,12 @@
   color: white;
   margin-right: 0.5rem;
   font-size: 0.9rem;
+  white-space: nowrap;
 }
 
 .logoutButton {
+  flex-shrink: 0;
+  white-space: nowrap;
   background: transparent;
   border: 1px solid white;
   color: white;
@@ -25,9 +28,11 @@
 .navigationItem {
   display: flex;
   align-items: center;
+  flex-shrink: 0;
 }
 
 .navigationLink {
+  white-space: nowrap;
   text-decoration: none;
   color: white;
   font-size: 1rem;
@@ -35,4 +40,8 @@
 
 .navigationLink:hover {
   color: #ddd;
+}
+
+.navigationLink {
+  font-weight: bold;
 }
