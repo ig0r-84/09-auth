@@ -1,5 +1,7 @@
 import { cookies } from "next/headers";
 import api from "@/lib/api/api";
+import { api as authApi } from "@/app/api/api";
+
 import type { Note } from "@/types/note";
 import type { User } from "@/types/user";
 
@@ -65,4 +67,12 @@ export async function checkSession(): Promise<User | null> {
   } catch {
     return null;
   }
+}
+
+export async function checkServerSession(cookieHeader: string) {
+  return authApi.get("auth/session", {
+    headers: {
+      Cookie: cookieHeader,
+    },
+  });
 }
