@@ -1,13 +1,13 @@
 "use client";
 
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { logout } from "@/lib/api/clientApi";
 import { useAuthStore } from "@/lib/store/authStore";
+import { logout } from "@/lib/api/clientApi";
 import css from "./AuthNavigation.module.css";
 
 export default function AuthNavigation() {
   const router = useRouter();
+
   const user = useAuthStore((state) => state.user);
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const clearIsAuthenticated = useAuthStore(
@@ -18,7 +18,7 @@ export default function AuthNavigation() {
     try {
       await logout();
     } catch (error) {
-      console.error("Помилка під час виходу:", error);
+      console.error("Logout error:", error);
     } finally {
       clearIsAuthenticated();
       router.push("/sign-in");
@@ -26,40 +26,42 @@ export default function AuthNavigation() {
     }
   }
 
-  if (!isAuthenticated || !user) {
-    return (
-      <>
-        <li className={css.navigationItem}>
-          <Link className={css.navigationLink} href="/sign-in">
-            Увійти
-          </Link>
-        </li>
-        <li className={css.navigationItem}>
-          <Link className={css.navigationLink} href="/sign-up">
-            Реєстрація
-          </Link>
-        </li>
-      </>
-    );
-  }
-
   return (
     <>
-      <li className={css.navigationItem}>
-        <Link className={css.navigationLink} href="/profile">
-          Профіль
-        </Link>
-      </li>
-      <li className={css.navigationItem}>
-        <span className={css.userEmail}>{user.email}</span>
-        <button
-          className={css.logoutButton}
-          type="button"
-          onClick={handleLogout}
-        >
-          Вийти
-        </button>
-      </li>
+      {isAuthenticated && user ? (
+        <>
+          <li className={css.navigationItem}>
+            <a href="/profile" className={css.navigationLink}>
+              Profile
+            </a>
+          </li>
+
+          <li className={css.navigationItem}>
+            <p className={css.userEmail}>{user.email}</p>
+            <button
+              className={css.logoutButton}
+              onClick={handleLogout}
+              type="button"
+            >
+              Logout
+            </button>
+          </li>
+        </>
+      ) : (
+        <>
+          <li className={css.navigationItem}>
+            <a href="/sign-in" className={css.navigationLink}>
+              Login
+            </a>
+          </li>
+
+          <li className={css.navigationItem}>
+            <a href="/sign-up" className={css.navigationLink}>
+              Sign up
+            </a>
+          </li>
+        </>
+      )}
     </>
   );
 }
